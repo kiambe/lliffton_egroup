@@ -91,9 +91,9 @@ WSGI_APPLICATION = 'egroup_backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'lifton2',
-        'USER': 'admin',
-        'PASSWORD': 'D@t@sc13nc3',
+        'NAME': 'lliffton_egroup',
+        'USER': 'lliffton',
+        'PASSWORD': 'jollifF@1991e',
         'HOST': 'localhost',
         'PORT': '5432',
     }
