@@ -30,5 +30,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     #path('membersold/', include('members.urls')),
     path('', include('accounts.urls')),
+    path('ussd/', include('appuser.urls')),
    # path('logout/', RedirectView.as_view(url='/admin/logout/')),
 ]
