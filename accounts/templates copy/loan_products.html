@@ -1,0 +1,27 @@
+{% extends 'member/base.html' %}
+{% load static %} 
+
+{% block content %}
+<hr>
+<main class="page-content">
+    <h1>Loan Products</h1>
+    <div class="card-container">
+        {% for loan_product in loan_products %}
+            <div class="card">
+                <h2>{{ loan_product.name }}</h2>
+                <p>Description: {{ loan_product.description }}</p>
+                <p>Loan Duration (days): {{ loan_product.loan_duration_days }}</p>
+                <p>Penalty Rate: {{ loan_product.penalty_rate }}</p>
+                <p>Interest Rate: {{ loan_product.interest_rate }}</p>
+                <p>Product Type: {{ loan_product.product_type }}</p>
+                <p>Borrowing Percentage: {{ loan_product.borrowing_percentage }}</p>
+                <p>Borrowing Times: {{ loan_product.borrowing_times }}</p>
+                <p>Created At: {{ loan_product.created_at }}</p>
+                <p>Updated At: {{ loan_product.updated_at }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</main>
+
+
+{% endblock %}

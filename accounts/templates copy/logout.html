@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %} 
+
+{% block content %}
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div class="error-404 d-flex align-items-center justify-content-center">
+  <div class="container">
+    <div class="card py-5">
+      <div class="row g-0">
+        <div class="col col-xl-5">
+          <div class="card-body p-4">
+            <h1 class="display-1"><span class="text-danger">Thank </span><span class="text-primary">You</span><span class="text-success">.</span></h1>
+            <h2 class="font-weight-bold display-4">Logged Out</h2>
+            <p>You have been logged out of the system
+              <br>
+            <div class="mt-5"> <a href="{% url 'login' %}" class="btn btn-primary btn-lg px-md-5 radius-30">Login</a>
+              <a href="javascript:;" class="btn btn-outline-dark btn-lg ms-3 px-md-5 radius-30">Back</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-7">
+          <img src="assets/images/error/404-error.png" class="img-fluid" alt="">
+        </div>
+      </div>
+      <!--end row-->
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}
+
+

@@ -1,0 +1,55 @@
+{% extends 'management/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<hr>
+<main class="page-content">
+        <div class="row">
+            <div class="col-xl-9 mx-auto">
+                <h6 class="mb-0 text-uppercase">Loan List</h6>
+                <hr>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="border p-4 rounded">
+                            <table class="table table-bordered">
+                                 <thead>
+                    <tr>
+                        <th>Loan Type</th>
+                        <th>Member</th>
+                        <th>Loan Product</th>
+                        <th>Amount</th>
+                        <th>Amount Due</th>
+                        <th>Duration (Days)</th>
+                        <th>Borrowing Times</th>
+                        <th>Approved Date</th>
+                        <th>Due Date</th>
+                        <th>Status</th>
+                       
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for loan in loans %}
+                    <tr>
+                        <td>{{ loan.loan_type }}</td>
+                        <td>{{ loan.group_member_id }}</td>
+                        <td>{{ loan.loan_product_id }}</td>
+                        <td>{{ loan.amount }}</td>
+                        <td>{{ loan.amount_due }}</td>
+                        <td>{{ loan.duration_days }}</td>
+                        <td>{{ loan.borrowing_times }}</td>
+                        <td>{{ loan.approved_date }}</td>
+                        <td>{{ loan.due_date }}</td>
+                        <td>{{ loan.status }}</td>
+                        
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</main>
+{% endblock %}

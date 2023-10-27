@@ -1,0 +1,42 @@
+{% extends 'management/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<hr>
+<main class="page-content">
+    <!--breadcrumb-->
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+        <!-- Your breadcrumb content goes here -->
+    </div>
+    <!--end breadcrumb-->
+
+    <div class="row">
+        <div class="col-xl-9 mx-auto">
+            <h6 class="mb-0 text-uppercase">Loan Repayment Form</h6>
+            <hr>
+            <div class="card">
+                <div class="card-body">
+                    <div class="border p-4 rounded">
+                        <div class="card-title d-flex align-items-center">
+                            <h5 class="mb-0">Loan Repayment Details</h5>
+                        </div>
+                        <hr>
+                        <form class="form-body" action="{% url 'repayloan' %}" method="POST">
+                            {% csrf_token %}
+                            {{ form.as_p }}  <!-- Render the form fields -->
+                            <div class="row">
+                                <label class="col-sm-3 col-form-label"></label>
+                                <div class="col-sm-9">
+                                    <button type="submit" class="btn btn-primary px-5">Submit Repayment</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+{% endblock %}

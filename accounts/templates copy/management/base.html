@@ -1,0 +1,523 @@
+
+{% load static %}
+<!doctype html>
+<html lang="en" class="minimal-theme">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="{% static 'assets/images/favicon-32x32.png'  %}" type="image/png" />
+  <!--plugins-->
+  <link href="{% static 'assets/plugins/simplebar/css/simplebar.css'  %}" rel="stylesheet" />
+  <link href="{% static 'assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css'  %}" rel="stylesheet" />
+  <link href="{% static 'assets/plugins/vectormap/jquery-jvectormap-2.0.2.css'  %}" rel="stylesheet" />
+  <!-- Bootstrap CSS -->
+  <link href="{% static 'assets/css/bootstrap.min.css'  %}" rel="stylesheet" />
+  <link href="{% static 'assets/css/bootstrap-extended.css'  %}" rel="stylesheet" />
+  <link href="{% static 'assets/css/style.css'  %}" rel="stylesheet" />
+  <link href="{% static 'assets/css/icons.css'  %}" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdndelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+  <!-- loader-->
+	<link href="{% static 'assets/css/pace.min.css'  %}" rel="stylesheet" />
+
+
+  <!--Theme Styles-->
+  <link href="{% static 'assets/css/dark-theme.css'  %}" rel="stylesheet" />
+  <link href="{% static 'assets/css/light-theme.css'  %}" rel="stylesheet" />
+  <link href="{% static 'assets/css/semi-dark.css'  %}" rel="stylesheet" />
+  <link href="{% static 'assets/css/header-colors.css'  %}" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <title>Integrated Group Information Management System</title>
+</head>
+
+<body>
+
+
+  <!--start wrapper-->
+  <div class="wrapper">
+    <!--start top header-->
+    <header class="top-header">        
+      <nav class="navbar navbar-expand">
+        <div class="mobile-toggle-icon d-xl-none">
+            <i class="bi bi-list"></i>
+          </div>
+          <div class="top-navbar d-none d-xl-block">
+          <ul class="navbar-nav align-items-center">
+            <li class="nav-item">
+            <a class="nav-link" href="{% url 'management_dashboard' %}">Dashboard</a>
+            </li>
+           
+            <li class="nav-item">
+            <a class="nav-link" href="javascript:;">User Management</a>
+            </li>
+            
+          </ul>
+          </div>
+          <div class="search-toggle-icon d-xl-none ms-auto">
+            <i class="bi bi-search"></i>
+          </div>
+          <form class="searchbar d-none d-xl-flex ms-auto">
+              <div class="position-absolute top-50 translate-middle-y search-icon ms-3"><i class="bi bi-search"></i></div>
+              <input class="form-control" type="text" placeholder="Type here to search">
+              <div class="position-absolute top-50 translate-middle-y d-block d-xl-none search-close-icon"><i class="bi bi-x-lg"></i></div>
+          </form>
+          <div class="top-navbar-right ms-3">
+            <ul class="navbar-nav align-items-center">
+            <li class="nav-item dropdown dropdown-large">
+              <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
+                <div class="user-setting d-flex align-items-center gap-1">
+                  <img src="{% static 'assets/images/logo-icon.png'  %}" class="user-img" alt="">
+                  <div class="user-name d-none d-sm-block">
+                    {% if request.user.is_authenticated %}{{ request.user.username }}
+{% else %}<a href="{% url 'login' %}">Login</a>{% endif %}
+                  </div>
+                </div>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                   <a class="dropdown-item" href="#">
+                     <div class="d-flex align-items-center">
+                        <img src="{% static 'assets/images/logo-icon.png'  %}" alt="" class="rounded-circle" width="60" height="60">
+                        <div class="ms-3">
+                          <h6 class="mb-0 dropdown-user-name">{% if request.user.is_authenticated %}{{ request.user.get_full_name }}
+                            {% else %}<a href="{% url 'login' %}">Login</a>{% endif %} </h6>
+                          <small class="mb-0 dropdown-user-designation text-secondary">Position</small>
+                        </div>
+                     </div>
+                   </a>
+                 </li>
+                 <li><hr class="dropdown-divider"></li>
+                 <li>
+                    <a class="dropdown-item" href="#">
+                       <div class="d-flex align-items-center">
+                         <div class="setting-icon"><i class="fas fa-cat"></i></div>
+                         <div class="setting-text ms-3"><span>My Profile</span></div>
+                       </div>
+                     </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">
+                       <div class="d-flex align-items-center">
+                         <div class="setting-icon"><i class="fa fa-heart"></i></div>
+                         <div class="setting-text ms-3"><span>Settings</span></div>
+                       </div>
+                     </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="{% url 'management_dashboard' %}">
+                       <div class="d-flex align-items-center">
+                         <div class="setting-icon"><i class="bi bi-speedometer"></i></div>
+                         <div class="setting-text ms-3"><span>Dashboard</span></div>
+                       </div>
+                     </a>
+                  </li>
+                
+                  
+                  <li><hr class="dropdown-divider"></li>
+                  <li>
+                    <a class="dropdown-item" href="{% url 'logout' %}">
+                       <div class="d-flex align-items-center">
+                         <div class="setting-icon"><i class="bi bi-lock-fill"></i></div>
+                         <div class="setting-text ms-3"><span>Logout</span></div>
+                       </div>
+                     </a>
+                  </li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown dropdown-large">
+              <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
+                <div class="projects">
+                  <i class="fa fa-gear" style="font-size:18px;color:blue;"></i>
+                </div>
+              </a>
+              <div class="dropdown-menu dropdown-menu-end">
+                 <div class="row row-cols-3 gx-2">
+                    <div class="col">
+                      <a href="{% url 'loan_cards' %}">
+                       <div class="apps p-2 radius-10 text-center">
+                          <div class="apps-icon-box mb-1 text-white bg-primary bg-gradient">
+                            <i class="fa fa-money" style="font-size:18px;color:white;"></i>
+                          </div>
+                          <p class="mb-0 apps-name">Loans</p>
+                       </div>
+                      </a>
+                    </div>
+                    <div class="col">
+                      <a href="{% url 'loan_products' %}">
+                      <div class="apps p-2 radius-10 text-center">
+                         <div class="apps-icon-box mb-1 text-white bg-danger bg-gradient">
+                          <i class="fa fa-industry" style="font-size:18px;color:white;"></i>
+                         </div>
+                         <p class="mb-0 apps-name">Loan Products</p>
+                      </div>
+                    </a>
+                   </div>
+                   <div class="col">
+                    <a href=""{% url 'list_vendors' %}"">
+                    <div class="apps p-2 radius-10 text-center">
+                       <div class="apps-icon-box mb-1 text-white bg-success bg-gradient">
+                        <i class="fa fa-briefcase" style="font-size:18px;color:white;"></i>
+                       </div>
+                       <p class="mb-0 apps-name">Vendors</p>
+                    </div>
+                    </a>
+                  </div>
+                  <div class="col">
+                    <a href="component-media-object.html">
+                    <div class="apps p-2 radius-10 text-center">
+                       <div class="apps-icon-box mb-1 text-white bg-orange bg-gradient">
+                        <i class="fa fa-globe" style="font-size:18px;color:white;"></i>
+                       </div>
+                       <p class="mb-0 apps-name">Website</p>
+                    </div>
+                    </a>
+                  </div>
+                 
+                 
+                  
+                 </div><!--end row-->
+              </div>
+            </li>
+           
+            <li class="nav-item dropdown dropdown-large d-none d-sm-block">
+              <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
+                <div class="notifications">
+                  <span class="notify-badge">2</span>
+                  <i class="fa fa-commenting-o" style="font-size:18px;color:blue;"></i>
+                </div>
+              </a>
+              <div class="dropdown-menu dropdown-menu-end p-0">
+                <div class="p-2 border-bottom m-2">
+                    <h5 class="h5 mb-0">Notifications</h5>
+                </div>
+                <div class="header-notifications-list p-2">
+                   <div class="dropdown-item bg-light radius-10 mb-1">
+                    <form class="dropdown-searchbar position-relative">
+                      <div class="position-absolute top-50 start-0 translate-middle-y px-3 search-icon"><i class="bi bi-search"></i></div>
+                      <input class="form-control" type="search" placeholder="Search Messages">
+                    </form>
+                    </div>
+                    <a class="dropdown-item" href="#">
+                      <div class="d-flex align-items-center">
+                         <div class="notification-box"><i class="bi bi-basket2-fill"></i></div>
+                         <div class="ms-3 flex-grow-1">
+                           <h6 class="mb-0 dropdown-msg-user">Loan Request <span class="msg-time float-end text-secondary">1 m</span></h6>
+                           <small class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">You have recived new loan request</small>
+                         </div>
+                      </div>
+                    </a>
+                   <a class="dropdown-item" href="#">
+                     <div class="d-flex align-items-center">
+                      <div class="notification-box"><i class="bi bi-people-fill"></i></div>
+                        <div class="ms-3 flex-grow-1">
+                          <h6 class="mb-0 dropdown-msg-user">Pending confirmation <span class="msg-time float-end text-secondary">7 m</span></h6>
+                          <small class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">5 new user registered</small>
+                        </div>
+                     </div>
+                   </a>
+                   
+                  
+               </div>
+               <div class="p-2">
+                 <div><hr class="dropdown-divider"></div>
+                   <a class="dropdown-item" href="#">
+                     <div class="text-center">View All Notifications</div>
+                   </a>
+               </div>
+              </div>
+            </li>
+            </ul>
+            </div>
+      </nav>
+    </header>
+       <!--end top header-->
+
+       <!--start sidebar -->
+       <aside class="sidebar-wrapper">
+          <div class="iconmenu"> 
+            <div class="nav-toggle-box">
+              <div class="nav-toggle-icon"><i class="fa fa-bars" style="font-size:18px;color:blue;"></i></div>
+            </div>
+            <ul class="nav nav-pills flex-column">
+              <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Home">
+                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-dashboards" type="button"><i class="fa fa-bar-chart" style="font-size:18px;color:blue;"></i></button>
+              </li>
+              <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="User Management"> 
+                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-application" type="button"><i class="fa fa-user-circle" style="font-size:18px;color:blue;"></i></button>
+              </li>
+              <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Market">
+                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-widgets" type="button"><i class="fa fa-handshake-o" style="font-size:18px;color:blue;"></i></button>
+              </li>
+              <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Farm">
+                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-ecommerce" type="button"><i class="fa fa-cubes" style="font-size:18px;color:blue;"></i></button>
+              </li>
+              <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Groups">
+                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-components" type="button"><i class="fa fa-users" style="font-size:18px;color:blue;"></i></button>
+              </li>
+              <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Resources">
+                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-forms" type="button"><i class="fa fa-arrows-alt" style="font-size:18px;color:blue;"></i></button>
+              </li>
+              <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Sales">
+                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-tables" type="button"><i class="fa fa-money" style="font-size:18px;color:blue;"></i></button>
+              </li>
+              <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Settings">
+                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-authentication" type="button"><i class="fa fa-cogs" style="font-size:18px;color:blue;"></i></button>
+              </li>
+              <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Reports">
+                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-icons" type="button"><i class="fa fa-book" style="font-size:18px;color:blue;"></i></button>
+              </li>
+            
+           
+             
+            </ul>
+          </div>
+          <div class="textmenu">
+            <div class="brand-logo">
+              eGroup
+            </div>
+            <div class="tab-content">
+              <div class="tab-pane fade" id="pills-dashboards">
+                <div class="list-group list-group-flush">
+                  <div class="list-group-item">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h5 class="mb-0">Dashboard</h5>
+                    </div>
+                    <small class="mb-0">System summaries</small>
+                  </div>
+                  <a href="{% url 'creategroup' %}" class="list-group-item"><i class="bi bi-cart-plus"></i>Register New Group</a>
+                
+                </div>
+              </div>
+              <div class="tab-pane fade" id="pills-application">
+                <div class="list-group list-group-flush">
+                  <div class="list-group-item">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h5 class="mb-0">User Management</h5>
+                    </div>
+                    <small class="mb-0">Manage users(Staff, group members and vendors)</small>
+                  </div>
+                  <a href="#" class="list-group-item"><i class="bi bi-envelope"></i>List Staff</a>
+                  <a href="{% url 'groups' %}" class="list-group-item"><i class="bi bi-chat-left-text"></i>List Group Members</a>
+                  <a href="{% url 'list_vendors' %}"class="list-group-item"><i class="bi bi-archive"></i>List Vendors</a>
+                </div>
+              </div>
+
+              <div class="tab-pane fade" id="pills-widgets">
+                <div class="list-group list-group-flush">
+                  <div class="list-group-item">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h5 class="mb-0">Market</h5>
+                    </div>
+                    <small class="mb-0">Manage markets</small>
+                  </div>
+                  <a href="{% url 'list_vendors' %}" class="list-group-item"><i class="bi bi-box"></i>List Vendors</a>
+                  <a href="{% url 'vendor_form' %}" class="list-group-item"><i class="bi bi-bar-chart"></i>Add Vendor</a>
+                  <a href="{% url 'product_list'%}" class="list-group-item"><i class="bi bi-bar-chart"></i>List Products</a>
+                  <a href="{% url 'add_product' %}" class="list-group-item"><i class="bi bi-bar-chart"></i>Add Product</a>
+                  <a href="{% url 'category_list' %}" class="list-group-item"><i class="bi bi-bar-chart"></i>Categories</a>
+       
+                </div>
+              </div>
+              <div class="tab-pane fade" id="pills-ecommerce">
+                <div class="list-group list-group-flush">
+                  <div class="list-group-item">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h5 class="mb-0">Farms</h5>
+                    </div>
+                    <small class="mb-0">Manage farms</small>
+                  </div>
+                  <a href="i.html" class="list-group-item"><i class="bi bi-box-seam"></i>Farmers</a>
+                  <a href="i.html" class="list-group-item"><i class="bi bi-box-seam"></i>Harvest</a>
+                  <a href="i.html" class="list-group-item"><i class="bi bi-card-text"></i>Livestock</a>
+                  <a href="i.html" class="list-group-item"><i class="bi bi-plus-square"></i>Vet</a>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="pills-components">
+                <div class="list-group list-group-flush">
+                  <div class="list-group-item">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h5 class="mb-0">Groups</h5>
+                    </div>
+                    <small class="mb-0">Manage Groups</small>
+                  </div>
+                  <a href="{% url 'list_groups' %}" class="list-group-item"><i class="bi bi-bell"></i>List Groups</a>
+                  <a href="{% url 'creategroup' %}" class="list-group-item"><i class="bi bi-bell"></i>Add New Group</a>
+                  {% comment %} <a href="{% url 'creategroup' %}" class="list-group-item"><i class="bi bi-cart-plus"></i>Register New Group</a> {% endcomment %}
+                 
+                </div>
+              </div>
+              <div class="tab-pane fade" id="pills-forms">
+                <div class="list-group list-group-flush">
+                  <div class="list-group-item">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h5 class="mb-0">Resources</h5>
+                    </div>
+                    <small class="mb-0">Manage resources</small>
+                  </div>
+                  <a href="{% url 'upload_article' %}" class="list-group-item"><i class="bi bi-file-text"></i>Articles</a>
+                  <a href="{% url 'trainings_page' %}" class="list-group-item"><i class="bi bi-bell"></i>Trainings</a>
+                  <a href="{% url 'weather_page' %}" class="list-group-item"><i class="bi bi-bell"></i>Weather</a>
+
+                </div>
+              </div>
+              <div class="tab-pane fade" id="pills-tables">
+                <div class="list-group list-group-flush">
+                  <div class="list-group-item">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h5 class="mb-0">Sales</h5>
+                    </div>
+                    <small class="mb-0">Manage Sales</small>
+                  </div>
+                  <a href="i.html" class="list-group-item"><i class="bi bi-bell"></i>List Sales</a>
+                  <a href="{% url 'loan_list' %}" class="list-group-item"><i class="bi bi-bell"></i>List Loans</a>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="pills-authentication">
+                <div class="list-group list-group-flush">
+                  <div class="list-group-item">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h5 class="mb-0">Settings</h5>
+                    </div>
+                    <small class="mb-0">manage settings</small>
+                  </div>
+                  <a href="{% url 'county_list' %}" class="list-group-item"><i class="bi bi-bell"></i>Counties</a>
+                  <a href="{% url 'subcounty_list' %}"class="list-group-item"><i class="bi bi-bell"></i>Sub Counties</a>
+                  <a href="{% url 'ward_list' %}" class="list-group-item"><i class="bi bi-bell"></i>Wards</a>
+                  <a href="{% url 'password_change' %}" class="list-group-item"><i class="bi bi-bell"></i>Change Password</a>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="pills-icons">
+                <div class="list-group list-group-flush">
+                  <div class="list-group-item">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h5 class="mb-0">Reports</h5>
+                    </div>
+                    <small class="mb-0">Manage reports</small>
+                  </div>
+                  <a href="{% url 'loan_line_chart' %}" class="list-group-item"><i class="bi bi-bell"></i>List reports</a>
+                </div>
+              </div>
+
+
+
+
+            </div>
+          </div>
+       </aside>
+       <!--start sidebar -->
+
+       <!--start content-->
+       {% block content %}
+
+     {% endblock %}
+      
+   <!--end page main-->
+
+
+       <!--start overlay-->
+        <div class="overlay nav-toggle-icon"></div>
+       <!--end overlay-->
+
+        <!--Start Back To Top Button-->
+        <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
+        <!--End Back To Top Button-->
+        
+         <!--start switcher-->
+       <div class="switcher-body">
+        <button class="btn btn-primary btn-switcher shadow-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="i.htmloffcanvasScrolling" aria-controls="offcanvasScrolling"><i class="bi bi-paint-bucket me-0"></i></button>
+        <div class="offcanvas offcanvas-end shadow border-start-0 p-2" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling">
+          <div class="offcanvas-header border-bottom">
+            <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Theme Customizer</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+          </div>
+          <div class="offcanvas-body">
+            <h6 class="mb-0">Theme Variation</h6>
+            <hr>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="LightTheme" value="option1">
+              <label class="form-check-label" for="LightTheme">Light</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="DarkTheme" value="option2">
+              <label class="form-check-label" for="DarkTheme">Dark</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="SemiDarkTheme" value="option3">
+              <label class="form-check-label" for="SemiDarkTheme">Semi Dark</label>
+            </div>
+            <hr>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="MinimalTheme" value="option3" checked>
+              <label class="form-check-label" for="MinimalTheme">Minimal Theme</label>
+            </div>
+            <hr/>
+            <h6 class="mb-0">Header Colors</h6>
+            <hr/>
+            <div class="header-colors-indigators">
+              <div class="row row-cols-auto g-3">
+                <div class="col">
+                  <div class="indigator headercolor1" id="headercolor1"></div>
+                </div>
+                <div class="col">
+                  <div class="indigator headercolor2" id="headercolor2"></div>
+                </div>
+                <div class="col">
+                  <div class="indigator headercolor3" id="headercolor3"></div>
+                </div>
+                <div class="col">
+                  <div class="indigator headercolor4" id="headercolor4"></div>
+                </div>
+                <div class="col">
+                  <div class="indigator headercolor5" id="headercolor5"></div>
+                </div>
+                <div class="col">
+                  <div class="indigator headercolor6" id="headercolor6"></div>
+                </div>
+                <div class="col">
+                  <div class="indigator headercolor7" id="headercolor7"></div>
+                </div>
+                <div class="col">
+                  <div class="indigator headercolor8" id="headercolor8"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+       </div>
+       <!--end switcher-->
+
+  </div>
+  <!--end wrapper-->
+
+
+  <!-- Bootstrap bundle JS -->
+  <script src="{% static 'assets/js/bootstrap.bundle.min.js'  %}"></script>
+  <!--plugins-->
+  <script src="{% static 'assets/js/jquery.min.js'  %}"></script>
+  <script src="{% static 'assets/plugins/simplebar/js/simplebar.min.js'  %}"></script>
+  <script src="{% static 'assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js'  %}"></script>
+  <script src="{% static 'assets/js/pace.min.js'  %}"></script>
+  <script src="{% static 'assets/plugins/vectormap/jquery-jvectormap-2.0.2.min.js'  %}"></script>
+	<script src="{% static 'assets/plugins/vectormap/jquery-jvectormap-world-mill-en.js'  %}"></script>
+  <script src="{% static 'assets/plugins/apexcharts-bundle/js/apexcharts.min.js'  %}"></script>
+  <script src="{% static 'assets/plugins/chartjs/chart.min.js'  %}"></script>
+  <!--app-->
+  <script src="{% static 'assets/js/app.js'  %}"></script>
+  <script src="{% static 'assets/js/index.js'  %}"></script>
+
+  <script>
+     new PerfectScrollbar(".best-product")
+     new PerfectScrollbar(".top-sellers-list")
+  </script>
+  
+
+</body>
+
+</html>
+
+                       
+                        

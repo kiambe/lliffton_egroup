@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Add your CSS and other necessary elements here -->
+</head>
+<body>
+    <h1>Article List</h1>
+    <ul>
+        {% for article in articles %}
+            <li>
+                <h3>{{ article.title }}</h3>
+                <p>{{ article.content|truncatechars:200 }}</p>
+                {% if article.document %}
+                    <a href="{{ article.document.url }}" target="_blank">Read More</a>
+                {% endif %}
+            </li>
+        {% empty %}
+            <p>No articles available.</p>
+        {% endfor %}
+    </ul>
+</body>
+</html>

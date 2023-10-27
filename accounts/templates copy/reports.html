@@ -1,0 +1,57 @@
+
+{% extends 'management/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<hr>
+<main class="page-content">
+ <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <canvas id="loanChart" width="400" height="200"></canvas>
+    <script>
+        fetch('/monthly_loan_data/')
+            .then(response => response.json())
+            .then(data => {
+                const months = data.map(item => item['approved_date__month']);
+                const totalLoans = data.map(item => item['total_loan_amount']);
+
+                const ctx = document.getElementById('loanChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: months,
+                        datasets: [{
+                            label: 'Monthly Loan Report',
+                            data: totalLoans,
+                            borderColor: 'blue',
+                            backgroundColor: 'rgba(0, 0, 255, 0.2)',
+                            fill: true,
+                        }],
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Month',
+                                },
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'Total Loan Amount',
+                                },
+                            },
+                        },
+                    },
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    </script>
+</main>
+{% endblock %}

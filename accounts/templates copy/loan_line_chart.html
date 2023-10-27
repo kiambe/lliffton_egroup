@@ -1,0 +1,50 @@
+{% extends 'management/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<hr>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<main class="page-content">
+
+    <h1>Loan Line Chart </h1>
+    <canvas id="loan-chart" width="400" height="200"></canvas>
+
+    <script>
+        // JavaScript code for creating the line chart
+        var ctx = document.getElementById('loan-chart').getContext('2d');
+        var dates = JSON.parse('{{ dates|escapejs }}');  
+        var amounts = JSON.parse('{{ amounts|escapejs }}');  
+
+        var chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: dates,
+                datasets: [{
+                    label: 'Loan Amount',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    data: amounts,
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        type: 'time',
+                        time: {
+                            unit: 'day', 
+                            tooltipFormat: 'YYYY-MM-DD',
+                        },
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Loan Amount',
+                        },
+                    },
+                },
+            },
+        });
+    </script>
+</main>
+{% endblock %}

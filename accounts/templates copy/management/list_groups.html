@@ -1,0 +1,56 @@
+{% extends 'management/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<hr>
+<main class="page-content">
+
+<div class="row">
+    <div class="col-xl-9 mx-auto">
+        <h6 class="mb-0 text-uppercase">List of Groups</h6>
+        <hr>
+        <div class="card">
+            <div class="card-body">
+                <div class="border p-4 rounded">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Group Name</th>
+                                <th>Special Code</th>
+                                <th>Group Type</th>
+                                <th>Ward</th>
+                                <th>Business Activity</th>
+                                <th>Opportunity</th>
+                
+                                <th>Publish</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for group in groups %}
+                            <tr>
+                                <td>{{ group.name }}</td>
+                                <td>{{ group.special_code }}</td>
+                                <td>{{ group.group_type }}</td>
+                                <td>{{ group.ward_id }}</td>
+                                <td>{{ group.business_activity }}</td>
+                                <td>{{ group.opportunity }}</td>
+                                
+                                <td>
+                                    {% if group.publish %}
+                                    <span class="badge badge-success">Published</span>
+                                    {% else %}
+                                    <span class="badge badge-danger">Not Published</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</main>
+{% endblock %}

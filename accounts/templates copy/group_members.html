@@ -1,0 +1,36 @@
+{% extends 'management/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<hr>
+<main class="page-content">
+    <h1>Groups and Members:</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Group Name</th>
+                <th>Members</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for group in groups %}
+                <tr>
+                    <td>{{ group.name }}</td>
+                    <td>
+                        <ul>
+                            {% for member in group.member_set.all %}
+                                <li>{{ member.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="2">No groups available.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</main>
+{% endblock %}

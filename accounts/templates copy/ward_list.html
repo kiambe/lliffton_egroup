@@ -1,0 +1,43 @@
+{% extends 'management/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<hr>
+<main class="page-content">
+
+<div class="row">
+    <div class="col-xl-9 mx-auto">
+        <h6 class="mb-0 text-uppercase">List of wards</h6>
+        <hr>
+        <div class="card">
+            <div class="card-body">
+                <div class="border p-4 rounded">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>County</th>
+                                <th>SubCounty</th>
+                                <!-- Add more fields as needed -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for ward in wards %}
+                                <tr>
+                                    <td>{{ ward.name }}</td>
+                                    <td>{{ ward.county_id }}</td>
+                                    <td>{{ ward.subcounty_id }}</td>
+                                    <!-- Display other fields here -->
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                        
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</main>
+{% endblock %}

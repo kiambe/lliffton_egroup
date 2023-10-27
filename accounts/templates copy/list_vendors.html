@@ -1,0 +1,32 @@
+
+{% extends 'management/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<hr>
+<main class="page-content">
+
+<body>
+    <div class="container">
+        <h1>List of Vendors</h1>
+        <div class="row">
+            
+            {% for vendor in vendors %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Name: {{ vendor.contact_person_name }}</h5>
+                        <p class="card-text">Business Name: {{ vendor.business_name }}</p>
+                        
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+    </div>
+
+    
+</main>
+{% endblock %}

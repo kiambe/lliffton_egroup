@@ -1,0 +1,22 @@
+{% extends 'management/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<hr>
+<main class="page-content">
+  <h1>Product List</h1>
+  <div class="product-grid">
+    {% for product in products %}
+      <div class="product-card">
+        <img src="{{ product.photo.url }}" alt="{{ product.name }}">
+        <h2>{{ product.name }}</h2>
+        <p>Category: {{ product.category }}</p>
+        <p>Retail Price: ${{ product.retail_price }}</p>
+        <p>Wholesale Price: ${{ product.wholesale_price }}</p>
+        <p>Description: {{ product.description }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</main>
+{% endblock %}

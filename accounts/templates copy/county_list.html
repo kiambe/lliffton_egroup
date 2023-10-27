@@ -1,0 +1,40 @@
+{% extends 'management/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<hr>
+<main class="page-content">
+
+<div class="row">
+    <div class="col-xl-9 mx-auto">
+        <h6 class="mb-0 text-uppercase">counties list</h6>
+        <hr>
+        <div class="card">
+            <div class="card-body">
+                <div class="border p-4 rounded">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Code</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for county in counties %}
+                            <tr>
+                                <td>{{ county.id }}</td>
+                                <td>{{ county.name }}</td>
+                                <td>{{ county.code }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</main>
+{% endblock %}

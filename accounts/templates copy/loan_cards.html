@@ -1,0 +1,36 @@
+{% extends 'member/base.html' %}
+{% load static %} 
+
+{% block content %}
+<hr>
+<main class="page-content">
+    <h1>loans</h1>
+    <div class="card-container">
+        {% for loan in loans %}
+            <div class="card">
+                <h2>{{ loan.loan_type }}</h2>
+                <p>Group ID: {{ loan.group_id }}</p>
+                <p>Member ID: {{ loan.group_member_id }}</p>
+                <p>Loan Product ID: {{ loan.loan_product_id }}</p>
+                <p>Amount: {{ loan.amount }}</p>
+                <p>Amount Due: {{ loan.amount_due }}</p>
+                <p>Duration (days): {{ loan.duration_days }}</p>
+                <p>Penalty Rate: {{ loan.penalty_rate }}</p>
+                <p>Interest: {{ loan.interest }}</p>
+                <p>Interest Rate: {{ loan.interest_rate }}</p>
+                <p>Voucher ID: {{ loan.voucher_id }}</p>
+                <p>Borrowing Percentage: {{ loan.borrowing_percentage }}</p>
+                <p>Borrowing Times: {{ loan.borrowing_times }}</p>
+                <p>Approved Date: {{ loan.approved_date }}</p>
+                <p>Due Date: {{ loan.due_date }}</p>
+                <p>Purpose: {{ loan.purpose }}</p>
+                <p>Status: {{ loan.status }}</p>
+                <p>Created At: {{ loan.created_at }}</p>
+                <p>Updated At: {{ loan.updated_at }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</main>
+
+
+{% endblock %}

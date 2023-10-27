@@ -1,0 +1,30 @@
+{% extends 'management/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<hr>
+<main class="page-content">
+
+    <h1>Upload an Article</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Upload</button>
+    </form>
+
+    <h2>Recent Articles</h2>
+    {% for article in articles %}
+    <div>
+        <h3>{{ article.title }}</h3>
+        <p>Author: {{ article.author }}</p>
+        <p>Publish Date: {{ article.publish_date }}</p>
+        <p>{{ article.content }}</p>
+        {% if article.document %}
+        <a href="{{ article.document.url }}" download>Download Document</a>
+        {% endif %}
+        {% comment %} <a href="{% url 'read_more' article.id %}">Read More</a> {% endcomment %}
+    </div>
+    {% endfor %}
+</main>
+{% endblock %}

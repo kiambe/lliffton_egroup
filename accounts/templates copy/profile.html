@@ -1,0 +1,60 @@
+{% extends 'member/base.html' %}
+{% load static %} 
+
+{% block content %}
+<hr>
+<main class="page-content">
+    <h1>Profile Information</h1>
+  <div class="row">
+    <div class="col-md-4">
+    <img src="/assets/avatar-2.png alt="{{ member.user.username }}'s profile picture">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="profile_picture">
+        <button type="submit">Upload</button>
+      </form>
+    </div>
+    <div class="col-md-8">
+      <table class="table">
+        <tbody>
+          <tr>
+            <th>First Name</th>
+            <td>{{ member.first_name }}</td>
+          </tr>
+          <tr>
+            <th>Last Name</th>
+            <td>{{ member.last_name }}</td>
+          </tr>
+          <tr>
+            <th>Physical Address</th>
+            <td>{{ member.physical_address }}</td>
+          </tr>
+          <tr>
+            <th>National ID</th>
+            <td>{{ member.national_id }}</td>
+          </tr>
+          <tr>
+            <th>Phone Number</th>
+            <td>{{ member.primary_phone_number }}</td>
+          </tr>
+          <tr>
+            <th>Year of Birth</th>
+            <td>{{ member.year_of_birth }}</td>
+          </tr>
+          <tr>
+            <th>Gender</th>
+            <td>{{ member.gender }}</td>
+          </tr>
+          <tr>
+            <th>Ward ID</th>
+            <td>{{ member.ward_id }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% comment %} <a href="{% url 'update_profile' %}" class="btn btn-primary">Update Profile</a> {% endcomment %}
+</main>
+
+
+{% endblock %}
