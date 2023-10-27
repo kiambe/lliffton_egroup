@@ -27,7 +27,7 @@ admin.site.index_title  =  "eGroup Administration"
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    #path('admin/', admin.site.urls),
     #path('membersold/', include('members.urls')),
     path('', include('accounts.urls')),
    # path('logout/', RedirectView.as_view(url='/admin/logout/')),
