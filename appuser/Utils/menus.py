@@ -1,5 +1,5 @@
 from appuser.Utils import constants
-from Utils.database_queries import *
+from database_queries import *
 
 
 
