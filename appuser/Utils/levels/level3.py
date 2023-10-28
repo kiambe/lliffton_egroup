@@ -1,5 +1,5 @@
 from appuser.Utils.menus import *
-from members.Utils.database_queries import *
+from accounts.Utils.database_queries import *
 
 
 def level3(custom_text,member_id=None):

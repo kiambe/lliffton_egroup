@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from appuser.Utils.constants import LEVEL_ONE_OPTIONS_META_DATA, LEVEL_TWO_OPTIONS_META_DATA
 from appuser.Utils.responses import *
 from appuser.Utils.menus import *
-from members.Utils.database_queries import *
+from accounts.Utils.database_queries import *
 from appuser.Utils.utils import *
 
 # goToBack, goToMain, removeUnwantedTexts, replaceCommaSpace, replaceEstericWithSpace, replaceSpaceFromText, saveSessionsToDatabase
