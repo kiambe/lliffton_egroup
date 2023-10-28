@@ -1,4 +1,4 @@
-from members.models import *
+from accounts.models import *
 
 
 def get_member_details_from_phone(phone_number="254791836987"):
