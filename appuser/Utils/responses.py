@@ -35,4 +35,4 @@ def response_main_with_text(text, custom_text,
         return level5(custom_text)
     if level == 6:
         print("is in level 6")
-        return level6(custom_text,member_id)
+        return level6(custom_text,member_id,phone_number)

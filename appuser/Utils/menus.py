@@ -1,7 +1,7 @@
 from appuser.Utils import constants
 from accounts.Utils.database_queries import *
 
-
+from .sms_module import App_SMS
 
 def response_session_ended():
     response = ''
@@ -64,7 +64,9 @@ def response_menu_one(custom_text_two):
 
 def response_menu_savings(custom_text_two,member_id):
     group_code =get_group_member_id_from_text(custom_text_two,member_id)["group_code"]
-    response = f'CON Savings for group {group_code}\n'
+    group_name =get_group_member_id_from_text(custom_text_two,member_id)["group_name"]
+    
+    response = f'CON Savings for group {group_name}\n'
     response += "1. Group Savings balance \n"
     response += "2. Your savings balance \n"
     response += "3. Do you want to save? \n"
@@ -83,7 +85,8 @@ def response_menu_your_savings(custom_text_two,savings):
 
 def response_menu_want_to_save(custom_text_two,member_id):
     group_code =get_group_member_id_from_text(custom_text_two,member_id)["group_code"]
-    response = f'CON Sure to save for group {group_code}?\n'
+    group_name =get_group_member_id_from_text(custom_text_two,member_id)["group_name"]
+    response = f'CON Sure to save for group {group_name}?\n'
     response += "1. Yes \n"
     response += "2. No \n"
     return response
@@ -94,13 +97,36 @@ def response_menu_want_to_save_yes(custom_text_two):
     response += constants.FOOTER_RESPONSE
     return response
 
-def response_menu_want_to_save_yes_amount(custom_text_two,member_id):
+def response_menu_want_to_save_yes_amount(custom_text_two,member_id,phone_number):
     response = f'END Savings\n'
     amount = custom_text_two[-1]
+    phone_number = phone_number
     group_code =get_group_member_id_from_text(custom_text_two,member_id)["group_code"]
+    group_name =get_group_member_id_from_text(custom_text_two,member_id)["group_name"]
+    
+    
+    member_object =get_group_member_id_from_text(custom_text_two,member_id)["member_id_object"]
+    # member_object_first_name = member_object.firts_name
+    # print(member_object.first_name)
+    
     # send MPESA stk in future
     # response += f"You are saving Ksh {amount}. An STK push will be sent to your phone \n"
-    response += f"Success! You have saved Ksh {amount} for group {group_code} \n"
+    response += f"Success! You have saved Ksh {amount} for group {group_name} \n"
+    
+    # send sms here
+    msg = None
+    
+    if member_object.first_name != None:
+    
+        msg = f"Dear {member_object.first_name}, You have saved KSH {amount} for group {group_name}"
+    else:
+        msg = f"You have succcessfully saved KSH {amount} for group {group_name}"
+        
+    
+
+    sms_to_send = App_SMS(phone=phone_number,msg=msg)
+    
+    sms_to_send.send_sms()
     
     return response
 

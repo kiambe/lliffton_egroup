@@ -1,6 +1,7 @@
 from accounts.models import *
 
 
+
 def get_member_details_from_phone(phone_number="254791836987"):
     try:
         member = Member.objects.get(primary_phone_number=phone_number)
