@@ -20,3 +20,13 @@ class Sessions(models.Model):
 
     def __str__(self):
         return f"{self.sessionNumber}"
+
+
+class SelfGeneratedVouchers(models.Model):
+    ticket_id = models.CharField(
+        max_length=length, blank=True, null=True, unique=True)
+    date_added = models.DateTimeField(auto_now_add=True)
+    date_updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Ticket id {self.ticket_id}"

@@ -4,7 +4,9 @@ import json
 import requests
 from appuser.Utils import constants
 from appuser.models import Sessions
-
+import random
+import string
+from appuser.models import SelfGeneratedVouchers
 
 headers = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:55.0) Gecko/20100101 Firefox/55.0',
@@ -175,3 +177,56 @@ def getRealIDForRepID(array, rep_id, key1="rep_id", key2="id"):
             real_id = x[key2]
 
     return real_id
+
+
+def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
+    return ''.join(random.choice(chars) for _ in range(size))
+
+def generateRandomInt():
+    check = True
+
+    # check if the random rumber is in the database
+    while check:
+        num1 = random.randint(1, 9)
+        num2 = random.randint(1, 9)
+        num3 = random.randint(1, 9)
+        num4 = random.randint(1, 5)
+        num5 = random.randint(1, 7)
+        num6 = random.randint(3, 9)
+        num7 = random.randint(1, 7)
+        num8 = random.randint(2, 9)
+        num9 = random.randint(3, 8)
+        letter1 = id_generator(size=1)
+        letter2 = id_generator(size=1)
+        letter3 = id_generator(size=1)
+
+        if num1 == num2 and num2 == num3:
+            num1 = random.randint(1, 9)
+            num2 = random.randint(1, 9)
+            num3 = random.randint(1, 9)
+        if num3 == num4 and num4 == num5:
+            num3 = random.randint(1, 9)
+            num4 = random.randint(1, 3)
+            num5 = random.randint(1, 7)
+            letter1 = id_generator(size=1)
+            letter2 = id_generator(size=1)
+            letter3 = id_generator(size=1)
+
+        number = f"{num3}{num1}{letter2}{num3}{letter3}{num9}{letter1}"
+
+        # number="16924323"
+        generated_id_results = SelfGeneratedVouchers.objects.filter(
+            ticket_id=number)
+        if len(generated_id_results) != 0:
+            # check = False
+            print(f"Number is already in db {generated_id_results}")
+            pass
+
+           
+        else:
+            data_to_save = SelfGeneratedVouchers(ticket_id=number)
+            data_to_save.save()
+            print("saved...")
+            check = False
+
+    return number

@@ -7,6 +7,7 @@ def level5(custom_text):
             return response_menu_want_to_save_yes(custom_text)
         elif custom_text[-1] == '2':
             return response_menu_want_to_save_no(custom_text)
+        
     elif custom_text[-3] == '2':
         return response_menu_pay_welfare_savings_stk(custom_text)
     elif custom_text[-3] == '3':
@@ -14,6 +15,9 @@ def level5(custom_text):
             return response_menu_pay_penalties_yes(custom_text)
         elif custom_text[-1] == '2':
             return response_menu_pay_penalties_no(custom_text)
+    
+    elif custom_text[-3] == '4':
+            return response_menu_input_loan_select_product(custom_text)
         
     elif custom_text[-3] == '5':
         if custom_text[-2] == '1':

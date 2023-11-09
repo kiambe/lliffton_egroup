@@ -29,7 +29,9 @@ def level4(custom_text,member_id):
             loans_total = get_member_loan(custom_text,member_id)
             return response_menu_my_loan(custom_text,loans_total)
         elif custom_text[-1] == '3':
-            return response_menu_apply_input_loan(custom_text)
+            # response_menu_input_loan_select_vendor
+            return response_menu_input_loan_select_vendor(custom_text)
+            # return response_menu_apply_input_loan(custom_text)
     elif custom_text[-2] == '5':
         if custom_text[-1] == '1':
             return response_menu_inputs_normal_order(custom_text)

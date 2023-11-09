@@ -5,6 +5,8 @@ from appuser.Utils.levels.level3 import *
 from appuser.Utils.levels.level4 import *
 from appuser.Utils.levels.level5 import *
 from appuser.Utils.levels.level6 import *
+from appuser.Utils.levels.level7 import *
+
 
 
 
@@ -36,3 +38,6 @@ def response_main_with_text(text, custom_text,
     if level == 6:
         print("is in level 6")
         return level6(custom_text,member_id,phone_number)
+    if level == 7:
+        print("is in level 6")
+        return level7(custom_text,member_id,phone_number)

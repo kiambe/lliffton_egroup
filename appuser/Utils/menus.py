@@ -2,7 +2,7 @@ from appuser.Utils import constants
 from accounts.Utils.database_queries import *
 
 from .sms_module import App_SMS
-
+from .utils import generateRandomInt
 def response_session_ended():
     response = ''
     response = f'END This session has ended. \n'
@@ -19,8 +19,8 @@ def response_menu_landing(custom_text_two):
     
     return response
 
-def response_decline_conditions(custom_text_two):
-    response = f'END '
+def response_decline_conditions(custom_text_two,msg=""):
+    response = f'END {msg}\n'
     response += "Thank you for using the E-Group system \n"
     return response
 
@@ -311,8 +311,15 @@ def response_menu_inputs_voucher_select_indicate_id_number(custom_text_two):
     
     return response
 
-def response_menu_inputs_voucher_generate_voucher(custom_text_two):
-    response = f'END You will receive an SMS message with voucher code\n'
+def response_menu_inputs_voucher_generate_voucher(custom_text_two,member_id,phone_number):
+    voucher = generateRandomInt()
+    message = f"Loan has been approved. Voucher code is {voucher}"
+
+    sms_to_send = App_SMS(phone=phone_number,msg=message)
+    
+    sms_to_send.send_sms()
+
+    response = f'END  {message}\n'
     
     return response
 def response_menu_inputs_voucher_accept_voucher(custom_text_two):
@@ -352,7 +359,33 @@ def response_menu_market_select_vendor(custom_text_two):
     
     return response
 
+def response_menu_input_loan_select_vendor(custom_text_two):
+    response = f'CON Select vendor\n'
+    vendors = Put_Vendors_to_String()
 
+    response += vendors['response']
+    response += constants.FOOTER_RESPONSE   
+    
+    return response
+
+
+def response_menu_input_loan_select_product(custom_text_two):
+    products = Put_Product_to_String()
+    response = f'CON Select product\n'
+    response += products['response']
+    response += constants.FOOTER_RESPONSE
+    
+    return response
+
+
+def response_menu_input_loan_confirm(custom_text_two):
+    
+    response = f'CON Are you sure you want to take the loan?\n'
+    response += f"1. Yes \n"
+    response += f"2. No \n"
+    response += constants.FOOTER_RESPONSE
+    
+    return response
 
 # def response_main_with_text(text, custom_text, 
 #     phone_number, custom_text_two,member_id
