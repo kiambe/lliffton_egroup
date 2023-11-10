@@ -239,3 +239,9 @@ def generateRandomInt():
             check = False
 
     return number
+
+
+# def checkIFAmountIsNumeric(string)
+#     x = string.isnumeric()
+#     if x === False:
+#         return "Amount is not numeric. Please try again."
