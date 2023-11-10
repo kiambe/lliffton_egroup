@@ -323,7 +323,7 @@ def response_menu_inputs_voucher_generate_voucher(custom_text_two,member_id,phon
 
 
     # get_group_vender_id_from_text
-    message = f"Loan has been approved for group {group_name}.KSH {product_retail_price}, Product loan is {product_name} from Vendor {vendor_name}. Voucher code is {voucher}"
+    message = f"Loan has been approved for group {group_name}.KSH {product_retail_price}, Product loan for {product_name} from Vendor {vendor_name}. Voucher code is {voucher}"
     # member_save_loan
 
     member_save_loan(custom_text_two,member_id,"Product loan",product_retail_price)
