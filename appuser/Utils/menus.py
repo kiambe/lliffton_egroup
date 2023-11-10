@@ -329,7 +329,7 @@ def response_menu_inputs_voucher_generate_voucher(custom_text_two,member_id,phon
     member_save_loan(custom_text_two,member_id,"Product loan",product_retail_price)
     sms_to_send = App_SMS(phone=phone_number,msg=message)
     
-    # sms_to_send.send_sms()
+    sms_to_send.send_sms()
 
     response = f'END  {message}\n'
     
