@@ -3,7 +3,9 @@ import json
 
 import requests
 from appuser.Utils import constants
-from appuser.models import Sessions
+from accounts.models import *
+
+from appuser.models import *
 import random
 import string
 from appuser.models import SelfGeneratedVouchers
@@ -152,7 +154,14 @@ def saveSessionsToDatabase(phoneNumber, sessionNumber, text, response):
     print("Session saved")
 
 
-            
+def saveVoucherToDatabase(code):
+
+    object_ = Voucher(code=code,voucher_issued=True
+                       )
+    object_.save()
+    print("voucher saved")
+
+         
 
 
 def checkInstanceIsInt(val):

@@ -108,3 +108,9 @@ class EmailAdmin(ImportExportModelAdmin):
     pass
 admin.site.register(Email, EmailAdmin)
 
+
+class VoucherAdmin(ImportExportModelAdmin):
+    list_display = ("id", "code","create_at")
+    pass
+admin.site.register(Voucher, VoucherAdmin)
+

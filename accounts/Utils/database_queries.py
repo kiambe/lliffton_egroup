@@ -111,6 +111,8 @@ def Put_Product_to_String():
 
     for idx, val in enumerate(product):
         product_db_id = val['id']
+        product_retail_price = val['retail_price']
+
         
         name=val['name']
         
@@ -118,7 +120,7 @@ def Put_Product_to_String():
         
         product_rep_id.append(idx+1)
         
-        response_to_be_added = f'{idx+1}' + ". " +  name + "\n"
+        response_to_be_added = f'{idx+1}' + ". " + name + f" {product_retail_price}" + "\n"
         response += response_to_be_added
         
 
@@ -258,6 +260,57 @@ def get_group_member_id_from_text(custom_text,member_id):
         
     }
 
+
+def get_group_vender_id_from_text(custom_text,member_id):
+    # 1*1*4*3*1*1*2
+    # vendor id is option selected 3
+    group_selected = custom_text[1]
+    vender_selected = custom_text[4]
+    product_selected = custom_text[5]
+
+
+    
+    vendors_string = Put_Vendors_to_String()
+    member_groups_string = Put_Groups_to_String(member_id=member_id)
+    products_string = Put_Product_to_String()
+
+
+    vendor_id_rep_plus_id = vendors_string["rep_id_plus_id"]
+    print(f"vendor_id_rep_plus_id___ {vendor_id_rep_plus_id} {vender_selected}")
+    vendor_id  = getRealIDForRepID(array=vendor_id_rep_plus_id,rep_id=vender_selected)
+
+    member_id_rep_plus_id = member_groups_string["rep_id_plus_id"]
+    group_id  = getRealIDForRepID(array=member_id_rep_plus_id,rep_id=group_selected)
+    
+    products_id_rep_plus_id = products_string["rep_id_plus_id"]
+    product_id  = getRealIDForRepID(array=products_id_rep_plus_id,rep_id=product_selected)
+
+    print(f"vendor_id is {vendor_id}")
+    
+    
+    vendor_id_object = Vendor.objects.get(id=vendor_id)
+    member_id_object = Member.objects.get(id=member_id)
+    group_id_object = Group.objects.get(id=group_id)
+    product_id_object = Product.objects.get(id=product_id)
+
+    # product_retail_price = val['retail_price']
+    return {
+        
+        "vendor_id_object":vendor_id_object,
+        "vendor_id":vendor_id,
+        "vendor_name":vendor_id_object.business_name,
+        # "vendor_code":vendor_id_object.code,
+        "member_id_object":member_id_object,
+        "member_id":member_id,
+        "group_id_object":group_id_object,
+        "group_name":group_id_object.name,
+        "product_id_object":product_id_object,
+        "product_name":product_id_object.name,
+        "product_retail_price":product_id_object.retail_price
+
+        
+    }
+
 def member_save_to_group(custom_text,member_id):
     amount = custom_text[-1]
     
@@ -275,3 +328,16 @@ def member_save_to_group(custom_text,member_id):
     
     
     
+def member_save_loan(custom_text,member_id,loan_type,product_retail_price):
+    amount = custom_text[-1]
+    
+    my_object = get_group_vender_id_from_text(custom_text,member_id)
+    
+    group_id_object = my_object["group_id_object"]
+    member_id_object = my_object["member_id_object"]
+    vender_id_object = my_object["member_id_object"]
+
+    
+    
+    object_ = Loan(group_member_id=member_id_object,group_id=group_id_object,amount=product_retail_price)
+    object_.save()

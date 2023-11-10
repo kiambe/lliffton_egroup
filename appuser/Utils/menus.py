@@ -2,7 +2,7 @@ from appuser.Utils import constants
 from accounts.Utils.database_queries import *
 
 from .sms_module import App_SMS
-from .utils import generateRandomInt
+from .utils import *
 def response_session_ended():
     response = ''
     response = f'END This session has ended. \n'
@@ -313,11 +313,23 @@ def response_menu_inputs_voucher_select_indicate_id_number(custom_text_two):
 
 def response_menu_inputs_voucher_generate_voucher(custom_text_two,member_id,phone_number):
     voucher = generateRandomInt()
-    message = f"Loan has been approved. Voucher code is {voucher}"
+    saveVoucherToDatabase(voucher)
 
+    group_name =get_group_vender_id_from_text(custom_text_two,member_id)["group_name"]
+    vendor_name =get_group_vender_id_from_text(custom_text_two,member_id)["vendor_name"]
+    product_name =get_group_vender_id_from_text(custom_text_two,member_id)["product_name"]
+    product_retail_price =get_group_vender_id_from_text(custom_text_two,member_id)["product_retail_price"]
+    
+
+
+    # get_group_vender_id_from_text
+    message = f"Loan has been approved for group {group_name}.KSH {product_retail_price}, Product loan is {product_name} from Vendor {vendor_name}. Voucher code is {voucher}"
+    # member_save_loan
+
+    member_save_loan(custom_text_two,member_id,"Product loan",product_retail_price)
     sms_to_send = App_SMS(phone=phone_number,msg=message)
     
-    sms_to_send.send_sms()
+    # sms_to_send.send_sms()
 
     response = f'END  {message}\n'
     
@@ -378,128 +390,19 @@ def response_menu_input_loan_select_product(custom_text_two):
     return response
 
 
-def response_menu_input_loan_confirm(custom_text_two):
+def response_menu_input_loan_confirm(custom_text_two,member_id,phone_number):
+
+    group_name =get_group_vender_id_from_text(custom_text_two,member_id)["group_name"]
+    vendor_name =get_group_vender_id_from_text(custom_text_two,member_id)["vendor_name"]
+    product_name =get_group_vender_id_from_text(custom_text_two,member_id)["product_name"]
+    product_retail_price =get_group_vender_id_from_text(custom_text_two,member_id)["product_retail_price"]
+
+    # product_retail_price
     
-    response = f'CON Are you sure you want to take the loan?\n'
+    response = f'CON Are you sure you want to take KSH {product_retail_price} {product_name} loan form {vendor_name}?\n'
     response += f"1. Yes \n"
     response += f"2. No \n"
     response += constants.FOOTER_RESPONSE
     
     return response
 
-# def response_main_with_text(text, custom_text, 
-#     phone_number, custom_text_two,member_id
-#     ):
-    
-#     # print(f"phone_number2 is {phone_number}")
-
-#     level = len(custom_text)
-
-#     previous_value = ""
-#     print(f"level is {level}")
-#     # print(f" {custom_text[-2]}")
-    
-
-#     if level == 0:
-#         print("is in level 0")
-#         return level0(custom_text)
-#         return response_menu_landing(custom_text_two)
-
-   
-#     if level == 1:
-#         print("is in level 1")
-#         return level1(custom_text,member_id)
-    
-#     elif level == 2:
-#         print("levelis 2")
-#         return level2(custom_text)
-        
-#     elif level == 3:
-#         if custom_text[-2] == '1':
-#             if custom_text[-1] == '1':
-#                 return response_menu_group_savings(custom_text)
-#             elif custom_text[-1] == '2':
-#                 return response_menu_your_savings(custom_text)
-#             elif custom_text[-1] == '3':
-#                 return response_menu_want_to_save(custom_text)
-#         elif custom_text[-2] == '2':
-#             if custom_text[-1] == '1':
-#                 return response_menu_welfare_group_balance(custom_text)
-#             elif custom_text[-1] == '2':
-#                 return response_menu_welfare_total_savings(custom_text)
-#             elif custom_text[-1] == '3':
-#                 return response_menu_pay_welfare_savings(custom_text)
-#         elif custom_text[-2] == '3':
-#             if custom_text[-1] == '1':
-#                 return response_menu_view_penalties(custom_text)
-#             elif custom_text[-1] == '2':
-#                 return response_menu_want_to_pay_penalties(custom_text)
-#         elif custom_text[-2] == '4':
-#             if custom_text[-1] == '1':
-#                 return response_menu_group_loan(custom_text)
-#             elif custom_text[-1] == '2':
-#                 return response_menu_my_loan(custom_text)
-#             elif custom_text[-1] == '3':
-#                 return response_menu_apply_input_loan(custom_text)
-#         elif custom_text[-2] == '5':
-#             if custom_text[-1] == '1':
-#                 return response_menu_inputs_normal_order(custom_text)
-#             elif custom_text[-1] == '2':
-#                 return response_menu_market_select_product(custom_text)
-#         elif custom_text[-2] == '6':
-#             if custom_text[-1] == '1':
-#                 return response_menu_market_select_product(custom_text)
-#             elif custom_text[-1] == '2':
-#                 return response_menu_market_select_vendor(custom_text)    
-            
-       
-    
-#     elif level == 4:
-#         if custom_text[-3] == '1':
-#             if custom_text[-1] == '1':
-#                 return response_menu_want_to_save_yes(custom_text)
-#             elif custom_text[-1] == '2':
-#                 return response_menu_want_to_save_no(custom_text)
-#         elif custom_text[-3] == '2':
-#             return response_menu_pay_welfare_savings_stk(custom_text)
-#         elif custom_text[-3] == '3':
-#             if custom_text[-1] == '1':
-#                 return response_menu_pay_penalties_yes(custom_text)
-#             elif custom_text[-1] == '2':
-#                 return response_menu_pay_penalties_no(custom_text)
-            
-#         elif custom_text[-3] == '5':
-#             if custom_text[-2] == '1':
-#                 if custom_text[-1] == '1':
-#                     return response_menu_inputs_normal_select_product(custom_text)
-#                 elif custom_text[-1] == '2':
-#                     return response_menu_inputs_normal_select_vendor(custom_text)
-#             elif custom_text[-2] == '2':
-#                 if custom_text[-1] == '1':
-#                     return response_menu_inputs_voucher_select_indicate_id_number(custom_text)
-#                 elif custom_text[-1] == '2':
-#                     return response_menu_inputs_normal_select_vendor(custom_text) 
-#                 elif custom_text[-1] == '3':
-#                     return response_menu_inputs_voucher_accept_voucher(custom_text) 
-#             else:
-#                 pass
-            
-#             # return response_menu_pay_welfare_savings_stk(custom_text)
-                
-       
-#     elif level == 5:
-#         if custom_text[-2] == '1':
-#             return response_menu_want_to_save_yes_amount(custom_text)
-#         elif custom_text[-2] == '2':
-#             return response_menu_pay_welfare_savings_stk(custom_text)
-#         elif custom_text[-2] == '3':
-#             return response_menu_pay_penalties_stk(custom_text)
-            
-            
-
-        
-
-   
-   
-    
-        

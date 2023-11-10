@@ -189,7 +189,7 @@ class Voucher(models.Model):
     updated_at = models.DateTimeField(auto_now_add = True)
 
     def __str__(self):
-        return '%s' % self.name
+        return '%s' % self.code
 
 
 
